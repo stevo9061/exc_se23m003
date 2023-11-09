@@ -1,4 +1,4 @@
-# Start the service
+# Start the microservice app
 
 Please make sure that you are in the root directory and make sure that Docker Runtime is started.
 The project folder path contains the `compose.yaml` file, which starts the containers.
