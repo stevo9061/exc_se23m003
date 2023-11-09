@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./02-backend/spring-boot-ecommerce
+      dockerfile: Dockerfile
+    ports:
+      - "${BACKEND_PORT}:8080"
+    networks:
+      - ${ENV_NETWORK}
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}  
+
+  frontend:
+    build:
+      context: ./03-frontend/angular-ecommerce
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT}:80"
+    networks:
+      - ${ENV_NETWORK}
+    environment:
+      ANGULAR_PROFILES_ACTIVE: ${ANGULAR_PROFILES_ACTIVE} 
+      
+
+  db:
+   build:
+    context: ./SQL-Schema/
+    dockerfile: Dockerfile
+   ports:
+    - "${DB_PORT}:3306"
+   networks:
+      - ${ENV_NETWORK}
+   environment:
+       MYSQL_PROFILES_ACTIVE: ${MYSQL_PROFILES_ACTIVE}
+
+networks:
+  dev_network:
+    driver: bridge
+  test_network:
+    driver: bridge
+  prod_network:
+    driver: bridge
